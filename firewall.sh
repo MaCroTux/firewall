@@ -13,7 +13,6 @@ iptables -A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT
 
 # DNS
 iptables -A INPUT -p tcp --dport 1812 --sport 1812 -j ACCEPT
-iptables -A OUTPUT -p tcp --sport 1812 --dport 1812 -j ACCEPT
 
 # DHCP
 iptables -I INPUT -p udp --dport 67:68 --sport 67:68 -j ACCEPT
@@ -22,8 +21,5 @@ iptables -I INPUT -p udp --dport 67:68 --sport 67:68 -j ACCEPT
 iptables -I INPUT -i eth0 -j ACCEPT
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 
-# Nos defendemos del mundo
-iptables -I INPUT -i wlan0 -j REJECT
-
 # Permitir conexciones establecidas
-#iptables -A FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -A FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
